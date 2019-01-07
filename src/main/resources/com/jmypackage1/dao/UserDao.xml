@@ -3,7 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmypackage1.dao.UserDao">
-    <select id="getLists" resultType="User">
+    <select id="getLists" resultType="User">  /*查询全部*/
         select * from user
+    </select>
+    <select id="getOne" resultType="User">  /*查询一个*/
+      select * from user where id=#{id}
+    </select>
+    <select id="insert" parameterType="User">  /*添加对象*/
+        insert into user(username,password,tele) values(#{username},#{password},#{tele})
+    </select>
+    <select id="amend"> /*修改对象*/
+        update user set id=#{id},username=#{username},password=#{password},tele=#{tele},grade_id=#{grade_id} where id=#{id}
+    </select>
+    <select id="deleUser"> /*删除对象*/
+        delete from user where id=#{id}
     </select>
 </mapper>

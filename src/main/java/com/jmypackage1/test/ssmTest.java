@@ -15,13 +15,23 @@ import java.util.List;
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class ssmTest {
     @Resource
-    private UserDao dao;
+    //private UserDao dao;
+    private IUserService service;
     @Test
-    public void test(){
-        List<User> lists = dao.getLists();
+    public void test01(){  /*查询全部*/
+        List<User> lists = service.getLists();  //查询单元测试
         for (User u:lists
              ) {
             System.out.println(u);
         }
+    }
+    @Test
+    public void test02(){  /*添加*/
+        User user = new User();
+        user.setUsername("erwr");
+        user.setPassword("123");
+        user.setTele("3443388833");
+        int i = service.insert(user);
+        System.out.println(i);
     }
 }

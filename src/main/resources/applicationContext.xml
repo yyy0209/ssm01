@@ -22,7 +22,7 @@
 ">
     <context:component-scan base-package="com.jmypackage1.service"/>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="root"/>
         <property name="password" value="1995"/>
