@@ -9,13 +9,13 @@
     <select id="getOne" resultType="User">  /*查询一个*/
       select * from user where id=#{id}
     </select>
-    <select id="insert" parameterType="User">  /*添加对象*/
+    <insert id="insert">  /*添加对象*/
         insert into user(username,password,tele) values(#{username},#{password},#{tele})
-    </select>
-    <select id="amend"> /*修改对象*/
+    </insert>
+    <update id="amend"> /*修改对象*/
         update user set id=#{id},username=#{username},password=#{password},tele=#{tele},grade_id=#{grade_id} where id=#{id}
-    </select>
-    <select id="deleUser"> /*删除对象*/
+    </update>
+    <delete id="deleUser"> /*删除对象*/
         delete from user where id=#{id}
-    </select>
+    </delete>
 </mapper>

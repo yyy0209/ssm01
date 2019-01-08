@@ -26,11 +26,11 @@ public class ssmTest {
         }
     }
     @Test
-    public void test02(){  /*添加*/
+    public void test02(){  /*添加对象*/
         User user = new User();
-        user.setUsername("erwr");
+        user.setUsername("epop");
         user.setPassword("123");
-        user.setTele("3443388833");
+        user.setTele("88888833");
         int i = service.insert(user);
         System.out.println(i);
     }
