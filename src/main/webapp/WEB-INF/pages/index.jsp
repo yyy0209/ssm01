@@ -29,6 +29,7 @@
 <p>显示内容界面</p>
 <a href="addUser.do">添加</a>
 <a href="exit.do">退出</a>
+<a href="upload.do">图片上传</a>
 <table>
     <thead>
     <tr>

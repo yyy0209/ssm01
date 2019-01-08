@@ -3,16 +3,20 @@ package com.jmypackage1.web;
 import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
 import com.jmypackage1.utilTest.CookieUtil;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -95,5 +99,25 @@ public class WebTest {
         HttpSession session = req.getSession();
         session.invalidate();//消除会话
         return "redirect:login.do";
+    }
+    @RequestMapping("/upload.do")
+    public String upload(){
+        return "upload";
+    }
+    @RequestMapping("/doUpload.do")
+    public String doUpload(@RequestParam("files") MultipartFile[] files){
+        for (MultipartFile f:files
+             ) {
+            if(!f.isEmpty()){
+                File file = new File("F:\\测试代码上传图片\\"+f.getOriginalFilename());
+                try {
+                    FileUtils.copyInputStreamToFile(f.getInputStream(),file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //System.out.println(file.getOriginalFilename());
+        return "";
     }
 }
