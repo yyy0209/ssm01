@@ -16,8 +16,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getOne(String username) {  //通过用户名查找出这个用户
-        return dao.getOne(username);   //去dao层，通过用户名查找出这个用户
+    public User getOneName(String username) {  //通过用户名查找出这个用户
+        return dao.getOneName(username);   //去dao层，通过用户名查找出这个用户
     }
 
     @Override

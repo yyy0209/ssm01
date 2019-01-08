@@ -20,6 +20,15 @@
         http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 ">
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.do"/>
+            <mvc:exclude-mapping path="/login.do"/>
+            <mvc:exclude-mapping path="/doLogin.do"/>
+            <!--扫包-->
+            <bean class="com.jmypackage1.web.TestMethod"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.jmypackage1.web"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

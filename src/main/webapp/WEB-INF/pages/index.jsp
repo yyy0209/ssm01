@@ -28,6 +28,7 @@
 <%--${lists}--%>
 <p>显示内容界面</p>
 <a href="addUser.do">添加</a>
+<a href="exit.do">退出</a>
 <table>
     <thead>
     <tr>

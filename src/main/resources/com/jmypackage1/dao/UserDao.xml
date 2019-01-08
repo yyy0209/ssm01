@@ -6,8 +6,11 @@
     <select id="getLists" resultType="User">  /*查询全部*/
         select * from user
     </select>
-    <select id="getOne" resultType="User">  /*查询一个*/
+    <select id="getOne" resultType="User">  /*通过id查询一个*/
       select * from user where id=#{id}
+    </select>
+    <select id="getOneName" resultType="User">  /*通过用户名查询一个*/
+    select * from user where username=#{username}
     </select>
     <insert id="insert">  /*添加对象*/
         insert into user(username,password,tele) values(#{username},#{password},#{tele})
