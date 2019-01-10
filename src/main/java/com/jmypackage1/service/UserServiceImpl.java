@@ -31,6 +31,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<User> getListsUser(User user) {
+        return dao.getListsUser(user);
+    }
+
+    @Override
     public int deleUser(int id) {
         return dao.deleUser(id);
     }

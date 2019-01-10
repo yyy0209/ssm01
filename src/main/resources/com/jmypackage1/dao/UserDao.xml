@@ -6,6 +6,14 @@
     <select id="getLists" resultType="User">  /*查询全部*/
         select * from user
     </select>
+    <select id="getListsUser" resultType="User" parameterType="User">  /*查询*/
+      select * from user
+      <where>
+          <if test="username!=null">
+              and username like concat('%',#{username},'%')
+          </if>
+      </where>
+    </select>
     <select id="getOne" resultType="User">  /*通过id查询一个*/
       select * from user where id=#{id}
     </select>

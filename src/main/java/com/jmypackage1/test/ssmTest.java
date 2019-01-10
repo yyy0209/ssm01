@@ -25,6 +25,16 @@ public class ssmTest {
             System.out.println(u);
         }
     }
+    @Resource
+    private UserDao dao;
+    @Test
+    public void test03(){  /*查询全部*/
+        List<User> lists = dao.getLists();  //查询单元测试
+        for (User u:lists
+        ) {
+            System.out.println(u);
+        }
+    }
     @Test
     public void test02(){  /*添加对象*/
         User user = new User();

@@ -17,5 +17,8 @@
         <input type="password" name="pwd"/><br>
         <input type="submit" value="login" />
     </form>
+    <div>
+        <a href="register">注册</a>
+    </div>
 </body>
 </html>

@@ -30,6 +30,7 @@
 <a href="addUser.do">添加</a>
 <a href="exit.do">退出</a>
 <a href="upload.do">图片上传</a>
+<a href="list.do">分页展示和模糊查询</a>
 <table>
     <thead>
     <tr>

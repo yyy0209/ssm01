@@ -1,5 +1,7 @@
 package com.jmypackage1.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
 import com.jmypackage1.utilTest.CookieUtil;
@@ -24,6 +26,26 @@ import java.util.Map;
 public class WebTest {
     @Autowired
     private IUserService service;
+    @RequestMapping("/list.do")
+    public String list(ModelMap map,HttpServletRequest req,User user){
+        //第几页
+        int pageNum= req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
+        int pageSize=3; //每页数据条数
+        PageHelper.startPage(pageNum,pageSize);  //分页信息
+        List<User> lists = service.getListsUser(user);  //集合
+        String uname;
+        if(user.getUsername()==null){
+            uname = "";
+        }else {
+            uname = "&username="+user.getUsername();  //应该判断传入的是否为空
+        }
+       // String uname = "&username="+user.getUsername();  //应该判断传入的是否为空
+        PageInfo<User> page = new PageInfo<>(lists);
+        map.addAttribute("uname",uname);
+        map.addAttribute("lists",lists);
+        map.addAttribute("page",page);
+        return "list";
+    }
     @RequestMapping("/index.do")
     public String index(ModelMap map){
         List<User> lists = service.getLists();  //查询全部对象

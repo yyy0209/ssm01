@@ -21,7 +21,7 @@ public class TestMethod implements HandlerInterceptor {
         //System.out.println(coo);
         if (coo == null){
             /*重定向*/
-            resp.sendRedirect("login.do");
+            resp.sendRedirect("logi  n.do");
             /*转发*/
             //req.getRequestDispatcher("WEB-INF/pages/login.jsp").forward(req,resp);
         }else {

@@ -9,6 +9,7 @@ public interface IUserService {
     public User getOneName(String username);  //通过用户名查找出这个用户
     public int amend(User user); //修改
     public List<User> getLists();   //查询
+    public List<User> getListsUser(User user);   //查询
     public int deleUser(int id);  //删除用户
     public User getOne(int id);  //查找一个
 }
