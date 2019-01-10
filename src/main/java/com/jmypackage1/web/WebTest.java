@@ -6,6 +6,7 @@ import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
 import com.jmypackage1.utilTest.CookieUtil;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class WebTest {
     }
     @RequestMapping("/doRegister.do")
     @ResponseBody
-    public String doRegister(@RequestParam("unames")String uname,String pwd, String pwds, String tele,HttpServletRequest req, HttpServletResponse resp){
+    public String doRegister(@RequestParam("unames")String uname,String pwd, String pwds, String tele){
         /*System.out.println(uname);   //测试
         System.out.println(pwd + " " + pwds);  //测试
         System.out.println(tele);  //测试*/
@@ -80,18 +82,21 @@ public class WebTest {
         int pageNum= req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
         int pageSize=3; //每页数据条数
         PageHelper.startPage(pageNum,pageSize);  //分页信息
-        List<User> lists = service.getListsUser(user);  //集合
-        String uname;
-        if(user.getUsername()==null){
-            uname = "";
+        List<User> lists = null;
+        PageInfo<User> page = null;
+        if(StringUtils.isBlank(user.getUsername())){
+           lists = service.getListsUser(null);
+           page = new PageInfo<>(lists,4);
+           map.addAttribute("page",page);
+           map.addAttribute("lists",lists);
         }else {
-            uname = "&username="+user.getUsername();  //应该判断传入的是否为空
+            lists = service.getListsUser(user);
+            String uname = "&username="+user.getUsername();  //应该判断传入的是否为空
+            page = new PageInfo<>(lists,4);
+            map.addAttribute("uname",uname);
+            map.addAttribute("lists",lists);
+            map.addAttribute("page",page);
         }
-       // String uname = "&username="+user.getUsername();  //应该判断传入的是否为空
-        PageInfo<User> page = new PageInfo<>(lists);
-        map.addAttribute("uname",uname);
-        map.addAttribute("lists",lists);
-        map.addAttribute("page",page);
         return "list";
     }
     @RequestMapping("/index.do")
@@ -105,8 +110,7 @@ public class WebTest {
         return "addUser";   //转发
     }
     @RequestMapping("/doAddUser.do")
-    public String doAddUser(User user){
-        service.insert(user);  //添加对象
+    public String doAddUser(){
         //redirect:重定向
         return "redirect:index.do";
     }
@@ -122,10 +126,36 @@ public class WebTest {
         map.put("user", user);  //带数据
         return "updateUser";   //转发
     }
+    @RequestMapping("/verifyUpdateUser.do")
+    @ResponseBody
+    public String verifyUpdateUser(String uame1,@RequestParam("unames")String uname,String pwd, String pwds, String tele,HttpServletRequest req, HttpServletResponse resp){
+        if (uname!=""){    //判断用户名输入不为空
+            User user = service.getOneName(uname);
+            /*System.out.println(user);
+            System.out.println(uame1);*/
+            if (user == null || user.getUsername().equals(uame1)){    //用户名可以使用
+                if (pwd!=""&&pwds!=""){   //密码不为空
+                    if (pwd.equals(pwds)){  //密码相同
+                        return "13";  //不刷新时传出数据
+                    }else {    //密码不相等
+                        return "14";
+                    }
+                }else {     //密码为空
+                    return "15";
+                }
+            }else {   //用户名以存在
+                return "2";  //不刷新时传出数据
+            }
+        }else {
+            return "0";
+        }
+    }
     @RequestMapping("/doUpdateUser.do")
+    @ResponseBody
     public String doUpdateUser(User user){
-        service.amend(user);  //修改对象
-        return "redirect:index.do";
+        System.out.println(user);
+        //service.amend(user);  //修改对象
+        return "1";
     }
     @RequestMapping("/login.do")
     public String login(){

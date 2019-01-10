@@ -13,8 +13,8 @@
 <body>
     <p>登录界面</p>
     <form id="fm" action="doLogin.do" method="post">
-        <input type="text" name="username"/><br>
-        <input type="password" name="pwd"/><br>
+        用户名：<input type="text" name="username"/><br>
+        密码：<input type="password" name="pwd"/><br>
         <input type="submit" value="login" />
     </form>
     <div>
