@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
@@ -26,6 +27,53 @@ import java.util.Map;
 public class WebTest {
     @Autowired
     private IUserService service;
+    @RequestMapping("/register.do")
+    public String register(){
+        return "register";
+    }
+    @RequestMapping("/doRegister.do")
+    @ResponseBody
+    public String doRegister(@RequestParam("unames")String uname,String pwd, String pwds, String tele,HttpServletRequest req, HttpServletResponse resp){
+        /*System.out.println(uname);   //测试
+        System.out.println(pwd + " " + pwds);  //测试
+        System.out.println(tele);  //测试*/
+        if (uname!=""){    //判断用户名输入不为空
+            User user = service.getOneName(uname);
+            //System.out.println(user);
+            if (user == null){    //用户名可以使用
+                if (pwd!=""&&pwds!=""){   //密码不为空
+                    if (pwd.equals(pwds)){  //密码相同
+                        return "13";  //不刷新时传出数据
+                    }else {    //密码不相等
+                        return "14";
+                    }
+                }else {     //密码为空
+                    return "15";
+                }
+            }else {   //用户名以存在
+                return "2";  //不刷新时传出数据
+            }
+        }else {
+            return "0";
+        }
+    }
+    @RequestMapping("/doIt.do")
+    @ResponseBody
+    public String doIt(@RequestParam("unames")String uname,String pwd, String pwds, String tele,HttpServletRequest req, HttpServletResponse resp){
+        /*System.out.println(uname);   //测试
+        System.out.println(pwd + " " + pwds);  //测试
+        System.out.println(tele);  //测试*/
+        User u = new User();
+        u.setUsername(uname);
+        u.setPassword(pwd);
+        u.setTele(tele);
+        int result = service.insert(u); //存放到数据库，返回受影响条数
+        if (result>0){
+            return "1";
+        }else {
+            return "0";
+        }
+    }
     @RequestMapping("/list.do")
     public String list(ModelMap map,HttpServletRequest req,User user){
         //第几页

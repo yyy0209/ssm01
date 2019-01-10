@@ -25,6 +25,7 @@
             <mvc:mapping path="/**/*.do"/>
             <mvc:exclude-mapping path="/login.do"/>
             <mvc:exclude-mapping path="/doLogin.do"/>
+            <mvc:exclude-mapping path="/register.do"/>
             <!--扫包-->
             <bean class="com.jmypackage1.web.TestMethod"/>
         </mvc:interceptor>

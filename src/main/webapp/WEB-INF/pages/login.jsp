@@ -18,7 +18,7 @@
         <input type="submit" value="login" />
     </form>
     <div>
-        <a href="register">注册</a>
+        <a href="register.do">注册</a>
     </div>
 </body>
 </html>
