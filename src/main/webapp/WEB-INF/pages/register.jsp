@@ -72,7 +72,7 @@
                 $.ajax({
                     url:"doIt.do",
                     type:"post",
-                    data:{"unames":un, "pwd":pwd, "pwds":pwds, "tele":tele},   //把值传入java代码中
+                    data:{unames:un, "pwd":pwd, "pwds":pwds, "tele":tele},   //把值传入java代码中
                     success:function (data) {
                         if (data=="1"){
                             alert("注册成功");

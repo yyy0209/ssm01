@@ -24,8 +24,7 @@
 </form>--%>
 <div>
     <form id="fo">
-        <input type="text" name="id" hidden="hidden" value="${user.id}">
-        <input type="text" name="name1" id="uame1" hidden="hidden" value="${user.username}"><br>
+        <input type="text" name="id" id="uid" hidden="hidden" value="${user.id}">
         用户名：<input type="text" name="username" id="unames" class="ajaxCla" value="${user.username}"><span id="message"></span><br>
         密码：<input type="password" name="pwd" id="pwd" class="ajaxCla" value="${user.password}"><br>
         确认密码：<input type="password" name="pwds" id="pwds" class="ajaxCla" value="${user.password}"><span id="pmes"></span><br>
@@ -38,13 +37,13 @@
     $(function () {
         //alert("测试");   //测试
         /*使用ajax*/
-        var un1;
+        var id = $("#uid").val();
+        var un1 = $("#unames").val();
         var un;
         var pwd;
         var pwds;
         var tele;
         $(".ajaxCla").keyup(function () {  //获取标签对象，绑定键盘改变事件
-            un1 =$("#uame1").val();
             un = $("#unames").val(); //通过id获取这个标签对象,再获取这个对象的值
             pwd = $("#pwd").val();
             pwds = $("#pwds").val();
@@ -60,18 +59,18 @@
                         $("#btn").attr("disabled",true);
                     }
                     if(result == "13"){
-                        $("#message").text("可以添加");
+                        $("#message").text("可以修改");
                         $("#pmes").text("√");
                         //$("#btn").removeAttr("disabled","disabled");
                         $("#btn").attr("disabled",false);   //disabled属性不生效
                     }
                     if(result == "14"){
-                        $("#message").text("可以添加");
+                        $("#message").text("可以修改");
                         $("#pmes").text("密码不一致");
                         $("#btn").attr("disabled",true);
                     }
                     if(result == "15"){
-                        $("#message").text("可以添加");
+                        $("#message").text("可以修改");
                         $("#pmes").text("密码不能为空");
                         $("#btn").attr("disabled",true);
                     }
@@ -86,14 +85,14 @@
             $.ajax({
                 url:"doUpdateUser.do",
                 type:"post",
-                data:{"unames":un, "pwd":pwd, "pwds":pwds, "tele":tele},   //把值传入java代码中
+                data:{"id":id,"username":un, "password":pwd, "tele":tele},   //把值传入java代码中
                 success:function (data) {
                     if (data=="1"){
-                        alert("添加成功");
-                        window.location.href="#";  //跳转界面
+                        alert("修改成功");
+                        window.location.href="index.do";  //跳转界面
                     }
                     if (data=="0"){
-                        alert("添加失败");
+                        alert("修改失败");
                     }
                 }
             });

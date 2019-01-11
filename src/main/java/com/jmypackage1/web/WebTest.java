@@ -115,10 +115,22 @@ public class WebTest {
         return "redirect:index.do";
     }
     @RequestMapping("/deleteUser.do")
-    public String deleteUser(int id){
+    public String deleteUser(int id, ModelMap map){
+        User user = service.getOne(id);
+        map.addAttribute("user",user);
+        //转发
+        return "deleteUser";
+    }
+    @RequestMapping("/doDeleteUser.do")
+    @ResponseBody
+    public String doDeleteUser(int id){
         service.deleUser(id); //删除对象
-        //重定向
-        return "redirect:index.do";
+        return "1";
+    }
+    @RequestMapping("/noBtn.do")
+    @ResponseBody
+    public String noBtn(){
+        return "1";
     }
     @RequestMapping("/updateUser.do")
     public String updateUser(ModelMap map, int id){
@@ -129,6 +141,7 @@ public class WebTest {
     @RequestMapping("/verifyUpdateUser.do")
     @ResponseBody
     public String verifyUpdateUser(String uame1,@RequestParam("unames")String uname,String pwd, String pwds, String tele,HttpServletRequest req, HttpServletResponse resp){
+        System.out.println(uname);
         if (uname!=""){    //判断用户名输入不为空
             User user = service.getOneName(uname);
             /*System.out.println(user);
@@ -153,8 +166,8 @@ public class WebTest {
     @RequestMapping("/doUpdateUser.do")
     @ResponseBody
     public String doUpdateUser(User user){
-        System.out.println(user);
-        //service.amend(user);  //修改对象
+        //System.out.println(user);
+        service.amend(user);  //修改对象
         return "1";
     }
     @RequestMapping("/login.do")
